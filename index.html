@@ -1,231 +1,368 @@
-<!-- This is the DOCTYPE declaration. It tells the browser what version of HTML to use. -->
 <!DOCTYPE html>
-
-<!-- This is the opening HTML tag. -->
-<html>
-
-<!-- This is the head section of the HTML document. It contains information about the document, such as the title and the CSS styles. -->
-
+<html lang="en">
 <head>
-
-  <!-- This is the title of the document. It will be displayed in the browser's title bar. -->
-  <title>CSI's Portfolio</title>
-
-  <!-- This link tag imports the Font Awesome CSS library. -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-  <!-- This link tag imports the CSS Stylesheet. -->
-  <link rel="stylesheet" href="styles.css">
-  <!-- This link tag imports the Inter font. -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ipsita Mondal - Interactive Portfolio</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.14.0/mermaid.min.js"></script>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --text-color: #ffffff;
+            --accent-color: #333333;
+            --secondary-color: #4a4a4a;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            background-color: var(--bg-color);
+            z-index: 1000;
+        }
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: 300;
+            transition: color 0.3s ease;
+        }
+        nav a:hover {
+            color: #007aff;
+        }
+        h1, h2 {
+            font-weight: 700;
+        }
+        .hero {
+            text-align: center;
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('/api/placeholder/1200/600') center/cover no-repeat;
+            opacity: 0.1;
+            z-index: -1;
+        }
+        .section {
+            margin-top: 50px;
+            padding: 30px;
+            background-color: var(--secondary-color);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--text-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -17px;
+            background-color: var(--text-color);
+            border: 4px solid #FF9F55;
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        .left {
+            left: 0;
+        }
+        .right {
+            left: 50%;
+        }
+        .left::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 22px;
+            width: 0;
+            z-index: 1;
+            right: 30px;
+            border: medium solid var(--text-color);
+            border-width: 10px 0 10px 10px;
+            border-color: transparent transparent transparent var(--text-color);
+        }
+        .right::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 22px;
+            width: 0;
+            z-index: 1;
+            left: 30px;
+            border: medium solid var(--text-color);
+            border-width: 10px 10px 10px 0;
+            border-color: transparent var(--text-color) transparent transparent;
+        }
+        .right::after {
+            left: -16px;
+        }
+        .timeline-content {
+            padding: 20px 30px;
+            background-color: var(--secondary-color);
+            position: relative;
+            border-radius: 6px;
+        }
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .skill {
+            background-color: var(--accent-color);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: transform 0.3s ease;
+        }
+        .skill:hover {
+            transform: scale(1.05);
+        }
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .project {
+            background-color: var(--accent-color);
+            padding: 20px;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+        .project:hover {
+            transform: translateY(-5px);
+        }
+        .project img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        .internships {
+            margin-top: 50px;
+        }
+        .flowchart {
+            margin-top: 50px;
+        }
+        .contact {
+            margin-top: 50px;
+            text-align: center;
+        }
+        .contact form {
+            display: flex;
+            flex-direction: column;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .contact input, .contact textarea {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: var(--accent-color);
+            color: var(--text-color);
+        }
+        .contact button {
+            background-color: #007aff;
+            color: var(--text-color);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .contact button:hover {
+            background-color: #0056b3;
+        }
+        #theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+        .animation-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        .floating {
+            animation: float 4s ease-in-out infinite;
+        }
+    </style>
 </head>
-
 <body>
-  <header>
-    <link rel="stylesheet" href="portfolio.css">
-    <h1 class="port_heading">Avi Srivastava's Portfolio</h1>
-    <nav>
-      <a class="about_nav" href="#about">About</a>
+    <div class="animation-container"></div>
+    <div class="container">
+        <header>
+            <h2>Ipsita Mondal</h2>
+            <nav>
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="#internships">Internships</a>
+                <a href="#education">Education</a>
+                <a href="#contact">Contact</a>
+                <button id="theme-toggle">🌓</button>
+            </nav>
+        </header>
 
-      <a class="skills_nav" href="#skills">Skills</a>
 
-      <a class="projects_nav" href="#projects">Projects</a>
+        <section class="hero" id="about">
+            <h1 class="floating">Ipsita Mondal</h1>
+            <p>Passionate developer and innovator, creating solutions that push the boundaries of technology.</p>
+        </section>
 
-      <a class="contact_nav" href="#contact">Contact</a>
-    </nav>
 
-  </header>
+        <section id="skills" class="section">
+            <h2>Skills</h2>
+            <div class="skills">
+                <span class="skill">JavaScript</span>
+                <span class="skill">Python</span>
+                <span class="skill">Figma</span>
+                <span class="skill">HTML</span>
+                <span class="skill">CSS</span>
+                <span class="skill">Tailwind CSS</span>
+               
+            </div>
+        </section>
 
-  <section id="about">
 
-    <h2 class="port_about">About Me</h2>
+        <section id="Internships" class="section">
+            <h2>Projects</h2>
+            <div class="Internships">
+                <div class="Internships">
+                    <img src="https://in.images.search.yahoo.com/images/view;_ylt=AwrKFbWONgBnpoUnhHq9HAx.;_ylu=c2VjA3NyBHNsawNpbWcEb2lkAzg4MzgwNTQ2YTU5OWFkYTkwZmU5NTI1N2Q4YjIyMjA5BGdwb3MDMjcEaXQDYmluZw--?back=https%3A%2F%2Fin.images.search.yahoo.com%2Fsearch%2Fimages%3Fp%3Dscaler%2Bschool%2Bof%2Btechnology%26type%3DE210IN885G0%26fr%3Dmcafee%26fr2%3Dpiv-web%26tab%3Dorganic%26ri%3D27&w=1200&h=675&imgurl=img-cdn.thepublive.com%2Ffit-in%2F1200x675%2Fbuzzincontent-1%2Fmedia%2Fmedia_files%2FQYYEsMDCZg7FQYUTybQV.png&rurl=https%3A%2F%2Fwww.buzzincontent.com%2Fbranded-content%2Fscaler-school-of-technology-unveils-indian-silicon-valley-challenge-to-motivate-future-tech-heroes-4509038&size=48KB&p=scaler+school+of+technology&oid=88380546a599ada90fe95257d8b22209&fr2=piv-web&fr=mcafee&tt=Scaler+School+of+Technology+unveils+%E2%80%98Indian+Silicon+Valley+Challenge+...&b=0&ni=21&no=27&ts=&tab=organic&sigr=r6Ge.gMIDULl&sigb=Iue.R60Ep.0j&sigi=fzTU5sfj3pDv&sigt=8tFpyFuGG9pn&.crumb=kX.decsovtD&fr=mcafee&fr2=piv-web&type=E210IN885G0" alt="Project 1">
+                    <h3>Scalar School of Technology</h3>
+                    <p>2 months</p>
+                </div>
+                <div class="Internship 2 ">
+                    <img src="https://in.images.search.yahoo.com/images/view;_ylt=Awr1SbgeNwBnHVEk9dq9HAx.;_ylu=c2VjA3NyBHNsawNpbWcEb2lkAzI2NzczNjIzZGIyZmI3NzI4ZGVhODhhYTNmYjJkMzkyBGdwb3MDMgRpdANiaW5n?back=https%3A%2F%2Fin.images.search.yahoo.com%2Fsearch%2Fimages%3Fp%3Diit%2Bbombay%26ei%3DUTF-8%26type%3DE210IN885G0%26fr%3Dmcafee%26fr2%3Dsa-gp-search%26tab%3Dorganic%26ri%3D2&w=768&h=576&imgurl=thumbs.dreamstime.com%2Fz%2Findian-institute-technology-bombay-entrance-gate-board-entry-iit-logo-front-view-india-s-top-engineering-264169212.jpg%3Fw%3D768&rurl=https%3A%2F%2Fwww.dreamstime.com%2Findian-institute-technology-bombay-entrance-gate-board-entry-iit-logo-front-view-india-s-top-engineering-image264169212&size=94KB&p=iit+bombay&oid=26773623db2fb7728dea88aa3fb2d392&fr2=sa-gp-search&fr=mcafee&tt=Indian+Institute+of+Technology+Bombay+Entrance+Gate+Board+Entry%2C+Iit+...&b=0&ni=200&no=2&ts=&tab=organic&sigr=NmTeXo7pGV4L&sigb=cbOs09Y7KNjL&sigi=MWxYSzeE3C2y&sigt=MVAoC4Fk4AYc&.crumb=kX.decsovtD&fr=mcafee&fr2=sa-gp-search&type=E210IN885G0" alt="Internship 2">
+                    <h3>Campus Ambassador-IIT Bombay</h3>
+                    <p>July-November</p>
+                </div>
+                <div class="Internship">
+                    <img src="/api/placeholder/300/200" alt="Project 3">
+                    <h3>Data Visualization Dashboard</h3>
+                    <p>Created an interactive dashboard for visualizing complex datasets.</p>
+                </div>
+            </div>
+        </section>
 
-    <img src="logo.png" alt="Profile Picture" class="logo_syn">
 
-    <p>We at CSI simply strive for uplifting the computer science community,
-        and even more so, we strive to make a positive impact on one another. We
-        keep our core team closely knit and constantly come up with new ideas.
-        Be it campaigns, events, study groups and what not.
-    </p>
-    <p>Through our chapter, students get boundless opportunities and marvelous
-        exposures beyond the confined textbook syllabi. It has been a successful
-        journey for our chapter till date in the form of workshops, hackathons,
-        learning weekends, competitions and educational visits, all of which
-        with much more, continues to be delivered by us.</p>
+        <section id="internships" class="section">
+            <h2>Internships</h2>
+            <div class="internships">
+                <div id="internship-tree"></div>
+            </div>
+        </section>
 
-  </section>
 
-  <section id="skills">
+        <section id="education" class="section">
+            <h2>Education Timeline</h2>
+            <div class="timeline">
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h3>High School Diploma</h3>
+                        <p>XYZ High School</p>
+                        <p>Graduated: 2020</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h3>Bachelor's in Computer Science</h3>
+                        <p>ABC University</p>
+                        <p>Expected Graduation: 2024</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <h2 class="port_skills">Skills</h2>
 
-    <div class="skill-icons">
-      <a href="https://github.com/torvalds/linux" target="_blank"><i class="fab fa-linux"></i></a>
-      <a href="https://python.org" target="_blank"><i class="fab fa-python"></i></a>
-      <a href="https://figma.com" target="_blank"><i class="fab fa-figma"></i></a>
-      <a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank"><i class="fab fa-html5"></i></a>
-      <a href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank"><i class="fab fa-css3-alt"></i></a>
-      <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank"><i class="fab fa-js"></i></a>
-      <a href="https://react.dev/" target="_blank"><i class="fab fa-react"></i></a>
-      <a href="https://nodejs.org" target="blank"><i class="fab fa-node"></i></a>
+        <section id="workflow" class="section">
+            <h2>My Workflow</h2>
+            <div class="flowchart">
+                <div id="workflow-chart"></div>
+            </div>
+        </section>
+
+
+        <section id="contact" class="contact section">
+            <h2>Get in Touch</h2>
+            <form id="contact-form">
+                <input type="text" id="name" placeholder="Your Name" required>
+                <input type="email" id="email" placeholder="Your Email" required>
+                <textarea id="message" placeholder="Your Message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </section>
     </div>
 
-  </section>
 
-  <section id="education">
-
-    <h2 class="port_ed">Education</h2>
-    <p>Bennett University (2024-2028)</p>
-    <p>ABC School</p>
-  </section>
+    <script>
+       
 
 
 
 
-    <section id="projects">
-      <h2 class="port_projects">Projects</h2>
-
-      <section id="projects">
-        <div class="projects">
-          <div class="project">
-            <h3>ClubKonnect</h3>
-
-            <p>This is a description for project 1.</p>
-
-            <a
-              href="https://github.com/CSI-Bennett-University/ClubKonnect"
-              style="color: #b4befe; text-decoration: none"
-            >
-              <comment>View Project</comment>
-            </a>
-          </div>
-
-          <!-- This div container holds another single project. -->
-          <div class="project">
-            <!-- This h3 heading defines the project name. -->
-            <h3>Portfolio_Template</h3>
-
-            <!-- This paragraph defines the project description. -->
-            <p>This is a description for project 2.</p>
-
-            <!-- This anchor tag provides a link to the project's GitHub repository. -->
-            <a
-              href="https://github.com/CSI-Bennett-University/Portfolio_Template"
-              style="color: #b4befe; text-decoration: none"
-            >
-              <!-- This is because the GitHub repository contains the project's source code. -->
-              <comment>View Project</comment>
-            </a>
-          </div>
-        </div>
-      </section>
-      <section id="projects">
-        <div class="projects">
-          <div class="project">
-            <h3>kavach</h3>
-            <p>This is a description for project 3.</p>
-
-            <a
-              href="https://github.com/CSI-Bennett-University/kavach"
-              style="color: #b4befe; text-decoration: none"
-            >
-              <comment>View Project</comment>
-            </a>
-          </div>
-
-          <div class="project">
-            <h3>github-demo</h3>
-
-            <!-- This paragraph defines the project description. -->
-            <p>This is a description for project 3.</p>
-
-            <!-- This anchor tag provides a link to the project's GitHub repository. -->
-            <a
-              href="https://github.com/CSI-Bennett-University/github-demo"
-              style="color: #b4befe; text-decoration: none"
-            >
-              <!-- This is because the GitHub repository contains the project's source code. -->
-              <comment>View Project</comment>
-            </a>
-          </div>
-        </div>
-      </section>
-      <section id="projects">
-        <div class="projects">
-          <div class="project">
-            <h3>profile-pulse</h3>
-
-            <!-- This paragraph defines the project description. -->
-            <p>This is a description for project 3.</p>
-
-            <!-- This anchor tag provides a link to the project's GitHub repository. -->
-            <a
-              href="https://github.com/CSI-Bennett-University/profile-pulse"
-              style="color: #b4befe; text-decoration: none"
-            >
-              <!-- This is because the GitHub repository contains the project's source code. -->
-              <comment>View Project</comment>
-            </a>
-          </div>
-        </div>
-      </section>
-    </section>
-
-    <!-- This is the "Contact Us" section of the document. -->
-    <section id="contact">
-      <!-- This h2 heading defines the section title. -->
-      <h2 class="port_contact">Contact Us</h2>
-
-      <!-- This paragraph defines the contact information. -->
-      <p>
-        <!-- This icon links to the CSI GitHub repository. -->
-        <i class="fab fa-github"></i>
-        <a
-          href="https://github.com/CSI-Bennett-University"
-          target="_blank"
-          rel="noopener noreferrer"
-          style="color: #d5d4f0; text-decoration: none"
-        >
-          <!-- This is because the GitHub repository contains the project's source code. -->
-          <comment>GitHub: CSI</comment>
-        </a>
-      </p>
-
-      <p>
-        <!-- This icon links to the CSI website. -->
-        <i class="fas fa-globe"></i>
-        <a
-          href="https://csi-bu.vercel.app/"
-          target="_blank"
-          rel="noopener noreferrer"
-          style="color: #d5d4f0; text-decoration: none"
-        >
-          <!-- This is because the website contains more information about the CSI. -->
-          <comment>Website: csi-bu</comment>
-        </a>
-      </p>
-
-      <p>
-        <i class="fab fa-linkedin"></i>
-        <a
-          href="https://www.linkedin.com/company/csi-bu/mycompany/"
-          target="_blank"
-          rel="noopener noreferrer"
-          style="color: #d5d4f0; text-decoration: none"
-        >
-          <comment>LinkedIn: CSI</comment>
-        </a>
-      </p>
-
-      <p>
-        <i class="fas fa-envelope"></i>
-        <a
-          href="mailto:csi@bennett.edu.in"
-          style="color: #d5d4f0; text-decoration: none"
-        >
-          <comment>Email: csi@bennett.edu.in</comment>
-        </a>
-      </p>
-    </section>
-  </body>
-</html>
