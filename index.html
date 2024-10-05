@@ -12,9 +12,10 @@
             --text-color: #ffffff;
             --accent-color: #333333;
             --secondary-color: #4a4a4a;
+            --hover-color: #007aff;
         }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             margin: 0;
@@ -36,6 +37,9 @@
             background-color: var(--bg-color);
             z-index: 1000;
         }
+        header img {
+            height: 50px;
+        }
         nav a {
             color: var(--text-color);
             text-decoration: none;
@@ -44,7 +48,7 @@
             transition: color 0.3s ease;
         }
         nav a:hover {
-            color: #007aff;
+            color: var(--hover-color);
         }
         h1, h2 {
             font-weight: 700;
@@ -71,7 +75,9 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('/api/placeholder/1200/600') center/cover no-repeat;
+            width: 100%;
+            height: 100vh;
+            background: url('https://yourlogo.com/logo.png') center/cover no-repeat;
             opacity: 0.1;
             z-index: -1;
         }
@@ -82,78 +88,7 @@
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        .timeline {
-            position: relative;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .timeline::after {
-            content: '';
-            position: absolute;
-            width: 6px;
-            background-color: var(--text-color);
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            margin-left: -3px;
-        }
-        .timeline-item {
-            padding: 10px 40px;
-            position: relative;
-            background-color: inherit;
-            width: 50%;
-        }
-        .timeline-item::after {
-            content: '';
-            position: absolute;
-            width: 25px;
-            height: 25px;
-            right: -17px;
-            background-color: var(--text-color);
-            border: 4px solid #FF9F55;
-            top: 15px;
-            border-radius: 50%;
-            z-index: 1;
-        }
-        .left {
-            left: 0;
-        }
-        .right {
-            left: 50%;
-        }
-        .left::before {
-            content: " ";
-            height: 0;
-            position: absolute;
-            top: 22px;
-            width: 0;
-            z-index: 1;
-            right: 30px;
-            border: medium solid var(--text-color);
-            border-width: 10px 0 10px 10px;
-            border-color: transparent transparent transparent var(--text-color);
-        }
-        .right::before {
-            content: " ";
-            height: 0;
-            position: absolute;
-            top: 22px;
-            width: 0;
-            z-index: 1;
-            left: 30px;
-            border: medium solid var(--text-color);
-            border-width: 10px 10px 10px 0;
-            border-color: transparent var(--text-color) transparent transparent;
-        }
-        .right::after {
-            left: -16px;
-        }
-        .timeline-content {
-            padding: 20px 30px;
-            background-color: var(--secondary-color);
-            position: relative;
-            border-radius: 6px;
-        }
+        /* Skills Section */
         .skills {
             display: flex;
             flex-wrap: wrap;
@@ -166,37 +101,119 @@
             border-radius: 20px;
             font-size: 0.9rem;
             transition: transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .skill img {
+            width: 25px;
+            height: 25px;
         }
         .skill:hover {
             transform: scale(1.05);
         }
-        .projects {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+
+        /* Infographic Education Timeline */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            margin-top: 30px;
         }
-        .project {
+        .timeline::before {
+            content: '';
+            position: absolute;
+            width: 4px;
+            height: 100%;
+            background-color: var(--hover-color);
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 80%;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        .timeline-item.left {
+            flex-direction: row-reverse;
+        }
+        .timeline-content {
             background-color: var(--accent-color);
             padding: 20px;
             border-radius: 10px;
-            transition: transform 0.3s ease;
+            position: relative;
+            width: 40%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        .project:hover {
-            transform: translateY(-5px);
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: var(--hover-color);
+            border-radius: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            top: 50%;
+            z-index: 2;
         }
-        .project img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 5px;
-            margin-bottom: 15px;
+        .timeline-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
         }
+        .timeline-content p {
+            font-size: 1rem;
+        }
+        .timeline-item.left .timeline-content {
+            text-align: right;
+        }
+
+        /* 3D Internship Cards */
         .internships {
+            display: flex;
+            justify-content: space-around;
             margin-top: 50px;
+            flex-wrap: wrap;
+            perspective: 1000px;
         }
-        .flowchart {
-            margin-top: 50px;
+        .internship {
+            width: 100%; /* Full width on small screens */
+            max-width: 300px; /* Limit the width on larger screens */
+            margin-bottom: 20px; /* Add some space between internship cards */
+            background-color: var(--accent-color);
+            border-radius: 15px;
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease;
+            position: relative;
+            overflow: hidden;
         }
+        .internship:hover {
+            transform: rotateY(20deg);
+        }
+        .internship img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            border-bottom: 2px solid #fff;
+        }
+        .internship-content {
+            padding: 20px;
+        }
+        .internship h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        .internship p {
+            font-size: 1rem;
+            margin: 5px 0;
+        }
+
+        /* Contact Form */
         .contact {
             margin-top: 50px;
             text-align: center;
@@ -216,7 +233,7 @@
             color: var(--text-color);
         }
         .contact button {
-            background-color: #007aff;
+            background-color: var(--hover-color);
             color: var(--text-color);
             border: none;
             padding: 10px 20px;
@@ -234,30 +251,12 @@
             cursor: pointer;
             font-size: 1.2rem;
         }
-        .animation-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 9999;
-        }
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-            100% { transform: translateY(0px); }
-        }
-        .floating {
-            animation: float 4s ease-in-out infinite;
-        }
     </style>
 </head>
 <body>
-    <div class="animation-container"></div>
     <div class="container">
         <header>
-            <h2>Ipsita Mondal</h2>
+            <img src="https://yourlogo.com/logo.png" alt="Logo">
             <nav>
                 <a href="#about">About</a>
                 <a href="#skills">Skills</a>
@@ -268,101 +267,92 @@
             </nav>
         </header>
 
-
         <section class="hero" id="about">
             <h1 class="floating">Ipsita Mondal</h1>
             <p>Passionate developer and innovator, creating solutions that push the boundaries of technology.</p>
         </section>
 
-
         <section id="skills" class="section">
             <h2>Skills</h2>
             <div class="skills">
-                <span class="skill">JavaScript</span>
-                <span class="skill">Python</span>
-                <span class="skill">Figma</span>
-                <span class="skill">HTML</span>
-                <span class="skill">CSS</span>
-                <span class="skill">Tailwind CSS</span>
-               
+                <span class="skill"><img src="https://via.placeholder.com/25" alt="JavaScript Icon"> JavaScript</span>
+                <span class="skill"><img src="https://via.placeholder.com/25" alt="Python Icon"> Python</span>
+                <span class="skill"><img src="https://via.placeholder.com/25" alt="Figma Icon"> Figma</span>
+                <span class="skill"><img src="https://via.placeholder.com/25" alt="HTML Icon"> HTML</span>
+                <span class="skill"><img src="https://via.placeholder.com/25" alt="CSS Icon"> CSS</span>
+                <span class="skill"><img src="https://via.placeholder.com/25" alt="AI Icon"> AI/ML</span>
             </div>
         </section>
-
-
-        <section id="Internships" class="section">
-            <h2>Projects</h2>
-            <div class="Internships">
-                <div class="Internships">
-                    <img src="https://in.images.search.yahoo.com/images/view;_ylt=AwrKFbWONgBnpoUnhHq9HAx.;_ylu=c2VjA3NyBHNsawNpbWcEb2lkAzg4MzgwNTQ2YTU5OWFkYTkwZmU5NTI1N2Q4YjIyMjA5BGdwb3MDMjcEaXQDYmluZw--?back=https%3A%2F%2Fin.images.search.yahoo.com%2Fsearch%2Fimages%3Fp%3Dscaler%2Bschool%2Bof%2Btechnology%26type%3DE210IN885G0%26fr%3Dmcafee%26fr2%3Dpiv-web%26tab%3Dorganic%26ri%3D27&w=1200&h=675&imgurl=img-cdn.thepublive.com%2Ffit-in%2F1200x675%2Fbuzzincontent-1%2Fmedia%2Fmedia_files%2FQYYEsMDCZg7FQYUTybQV.png&rurl=https%3A%2F%2Fwww.buzzincontent.com%2Fbranded-content%2Fscaler-school-of-technology-unveils-indian-silicon-valley-challenge-to-motivate-future-tech-heroes-4509038&size=48KB&p=scaler+school+of+technology&oid=88380546a599ada90fe95257d8b22209&fr2=piv-web&fr=mcafee&tt=Scaler+School+of+Technology+unveils+%E2%80%98Indian+Silicon+Valley+Challenge+...&b=0&ni=21&no=27&ts=&tab=organic&sigr=r6Ge.gMIDULl&sigb=Iue.R60Ep.0j&sigi=fzTU5sfj3pDv&sigt=8tFpyFuGG9pn&.crumb=kX.decsovtD&fr=mcafee&fr2=piv-web&type=E210IN885G0" alt="Project 1">
-                    <h3>Scalar School of Technology</h3>
-                    <p>2 months</p>
-                </div>
-                <div class="Internship 2 ">
-                    <img src="https://in.images.search.yahoo.com/images/view;_ylt=Awr1SbgeNwBnHVEk9dq9HAx.;_ylu=c2VjA3NyBHNsawNpbWcEb2lkAzI2NzczNjIzZGIyZmI3NzI4ZGVhODhhYTNmYjJkMzkyBGdwb3MDMgRpdANiaW5n?back=https%3A%2F%2Fin.images.search.yahoo.com%2Fsearch%2Fimages%3Fp%3Diit%2Bbombay%26ei%3DUTF-8%26type%3DE210IN885G0%26fr%3Dmcafee%26fr2%3Dsa-gp-search%26tab%3Dorganic%26ri%3D2&w=768&h=576&imgurl=thumbs.dreamstime.com%2Fz%2Findian-institute-technology-bombay-entrance-gate-board-entry-iit-logo-front-view-india-s-top-engineering-264169212.jpg%3Fw%3D768&rurl=https%3A%2F%2Fwww.dreamstime.com%2Findian-institute-technology-bombay-entrance-gate-board-entry-iit-logo-front-view-india-s-top-engineering-image264169212&size=94KB&p=iit+bombay&oid=26773623db2fb7728dea88aa3fb2d392&fr2=sa-gp-search&fr=mcafee&tt=Indian+Institute+of+Technology+Bombay+Entrance+Gate+Board+Entry%2C+Iit+...&b=0&ni=200&no=2&ts=&tab=organic&sigr=NmTeXo7pGV4L&sigb=cbOs09Y7KNjL&sigi=MWxYSzeE3C2y&sigt=MVAoC4Fk4AYc&.crumb=kX.decsovtD&fr=mcafee&fr2=sa-gp-search&type=E210IN885G0" alt="Internship 2">
-                    <h3>Campus Ambassador-IIT Bombay</h3>
-                    <p>July-November</p>
-                </div>
-                <div class="Internship">
-                    <img src="/api/placeholder/300/200" alt="Project 3">
-                    <h3>Data Visualization Dashboard</h3>
-                    <p>Created an interactive dashboard for visualizing complex datasets.</p>
-                </div>
-            </div>
-        </section>
-
 
         <section id="internships" class="section">
             <h2>Internships</h2>
             <div class="internships">
-                <div id="internship-tree"></div>
+                <div class="internship">
+                    <img src="/images/iitb.webp" alt="Internship 1">
+                    <div class="internship-content">
+                        <h3>Campus Ambassador</h3>
+                        <p>IIT BOMBAY</p>
+                    </div>
+                </div>
+                <div class="internship">
+                    <img src="/images/Scaler.jpeg" alt="Internship 3">
+                    <div class="internship-content">
+                        <h3>Scaler School of Technology</h3>
+                        <p>2 months</p>
+                    </div>
+                </div>
+
+                <div class="internship">
+                    <img src="/images/top_trove.png" alt="Internship 3">
+                    <div class="internship-content">
+                        <h3>  Top Trove Foundation</h3>
+                        <p>HR intern</p>
+                    </div>
+                </div>
+                
             </div>
         </section>
 
-
         <section id="education" class="section">
-            <h2>Education Timeline</h2>
+            <h2>Education</h2>
             <div class="timeline">
                 <div class="timeline-item left">
                     <div class="timeline-content">
-                        <h3>High School Diploma</h3>
-                        <p>XYZ High School</p>
-                        <p>Graduated: 2020</p>
+                        <h3>B.Tech in Computer Science</h3>
+                        <p>XYZ University, 2022 - Present</p>
                     </div>
                 </div>
-                <div class="timeline-item right">
+                <div class="timeline-item">
                     <div class="timeline-content">
-                        <h3>Bachelor's in Computer Science</h3>
-                        <p>ABC University</p>
-                        <p>Expected Graduation: 2024</p>
+                        <h3>High School</h3>
+                        <p>ABC School, 2020 - 2022</p>
                     </div>
                 </div>
             </div>
         </section>
 
-
-        <section id="workflow" class="section">
-            <h2>My Workflow</h2>
-            <div class="flowchart">
-                <div id="workflow-chart"></div>
-            </div>
-        </section>
-
-
-        <section id="contact" class="contact section">
-            <h2>Get in Touch</h2>
-            <form id="contact-form">
-                <input type="text" id="name" placeholder="Your Name" required>
-                <input type="email" id="email" placeholder="Your Email" required>
-                <textarea id="message" placeholder="Your Message" required></textarea>
+        <section id="contact" class="section contact">
+            <h2>Contact</h2>
+            <form action="" method="POST">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
                 <button type="submit">Send Message</button>
             </form>
         </section>
     </div>
 
-
+    <!-- JavaScript for Theme Toggle -->
     <script>
-       
-
-
-
-
+        document.getElementById('theme-toggle').addEventListener('click', () => {
+            const root = document.documentElement;
+            const currentBgColor = getComputedStyle(root).getPropertyValue('--bg-color').trim();
+            const newBgColor = currentBgColor === '#121212' ? '#f0f0f0' : '#121212';
+            const newTextColor = currentBgColor === '#121212' ? '#000000' : '#ffffff';
+            
+            root.style.setProperty('--bg-color', newBgColor);
+            root.style.setProperty('--text-color', newTextColor);
+        });
+    </script>
+</body>
+</html>
